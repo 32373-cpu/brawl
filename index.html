@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brawl Codex: every brawler, gadget, star power and gear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#070807;--panel:#111311;--panel2:#171a17;--line:#252a24;--lime:#c8ff1a;--text:#f2f5ee;--mute:#8d968a}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font:500 16px/1.55 Manrope,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.disp{font-family:'Bricolage Grotesque',Impact,sans-serif;font-weight:800;letter-spacing:-.03em;line-height:.95;margin:0}
+a{color:var(--lime)}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+
+/* hero */
+.hero{position:relative;padding:56px 24px 0;max-width:1280px;margin:auto}
+.hero::before{content:"";position:absolute;inset:-120px -10% auto -10%;height:560px;background:radial-gradient(ellipse at 50% 0,rgba(200,255,26,.22),transparent 62%);pointer-events:none}
+.logo{display:inline-flex;align-items:center;gap:10px;font:800 1.1rem 'Bricolage Grotesque';letter-spacing:-.02em}
+.logo i{width:14px;height:14px;background:var(--lime);border-radius:4px;transform:rotate(45deg)}
+h1{font-size:clamp(3.6rem,13vw,11rem);text-transform:uppercase;margin-top:26px;position:relative}
+h1 span{color:var(--lime)}
+.lead{max-width:52ch;color:var(--mute);font-size:1.1rem;margin:22px 0 0;position:relative}
+.search{position:relative;display:flex;gap:10px;max-width:640px;margin-top:28px}
+.search input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:18px 26px;font:700 1.05rem Manrope,sans-serif}
+.search input::placeholder{color:var(--mute)}
+.search input:focus{border-color:var(--lime);outline:none;box-shadow:0 0 0 4px rgba(200,255,26,.15)}
+
+/* marquee */
+.marq{margin:48px -24px 0;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.row{display:flex;gap:14px;width:max-content;margin-bottom:14px;animation:slide 70s linear infinite}
+.row.rev{animation-direction:reverse;animation-duration:85s}
+.marq:hover .row{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.pill{width:104px;height:104px;border-radius:26px;background:var(--panel);border:1px solid var(--line);padding:6px;cursor:pointer;flex:none;transition:border-color .15s,transform .15s}
+.pill:hover{border-color:var(--lime);transform:translateY(-4px)}
+.pill img{width:100%;height:100%;object-fit:contain}
+.skel{width:104px;height:104px;border-radius:26px;background:var(--panel);border:1px solid var(--line);flex:none}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(7,8,7,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .in{max-width:1280px;margin:auto;padding:14px 24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tab,.chip{background:transparent;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:10px 20px;font:700 .95rem Manrope,sans-serif;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.tab:hover,.chip:hover{border-color:var(--lime)}
+.tab[aria-selected=true]{background:var(--lime);color:#0a0c00;border-color:var(--lime)}
+.chip{padding:7px 16px;font-size:.88rem;color:var(--mute)}
+.chip[aria-pressed=true]{color:var(--lime);border-color:var(--lime);background:rgba(200,255,26,.08)}
+.sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+.count{margin-left:auto;color:var(--mute);font-size:.9rem}
+
+main{max-width:1280px;margin:0 auto;padding:24px 24px 80px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+.note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--lime);border-radius:14px;padding:14px 18px;color:var(--mute);margin-bottom:22px;max-width:80ch}
+
+/* brawler cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.card{position:relative;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:24px;padding:14px 14px 18px;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:transform .18s,border-color .18s,box-shadow .18s}
+.card:hover{transform:translateY(-6px);border-color:var(--lime);box-shadow:0 18px 40px -18px rgba(200,255,26,.45)}
+.card .ph{aspect-ratio:1;border-radius:16px;background:radial-gradient(circle at 50% 40%,var(--rc,#333) -80%,transparent 70%),#0d0f0d;display:grid;place-items:center;overflow:hidden}
+.card .ph img{width:92%;height:92%;object-fit:contain;transition:transform .25s}
+.card:hover .ph img{transform:scale(1.08) rotate(-2deg)}
+.card h3{font-size:1.5rem;margin:14px 0 4px}
+.meta{display:flex;gap:8px;align-items:center;color:var(--mute);font-size:.85rem}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--rc,#888)}
+
+/* item cards */
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.item{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:14px;transition:border-color .15s}
+.item:hover{border-color:var(--lime)}
+.item .ic{width:64px;height:64px;flex:none;border-radius:16px;background:#0d0f0d;display:grid;place-items:center;font-size:2rem}
+.item img{width:64px;height:64px;object-fit:contain;flex:none}
+.item b{display:block;font:800 1.15rem 'Bricolage Grotesque';letter-spacing:-.02em}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 10px;font-size:.78rem;color:var(--lime);margin:2px 0 4px}
+.item p{margin:2px 0 0;color:var(--mute);font-size:.92rem}
+.msg{padding:60px 0;color:var(--mute);text-align:center;grid-column:1/-1}
+
+/* dialog */
+dialog{border:1px solid var(--line);background:var(--ink);color:var(--text);border-radius:28px;width:min(980px,94vw);max-height:92vh;padding:0;overflow:hidden}
+dialog[open]{animation:pop .22s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.98)}}
+dialog::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(6px)}
+.x{position:absolute;top:16px;right:16px;z-index:2;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:1.2rem;cursor:pointer}
+.x:hover{background:var(--lime);color:#000}
+.dscroll{max-height:92vh;overflow:auto}
+.dh{display:flex;gap:28px;align-items:center;padding:32px;flex-wrap:wrap;background:radial-gradient(ellipse at 15% 0,rgba(200,255,26,.16),transparent 60%)}
+.dh img{width:190px;height:190px;object-fit:contain}
+.dh h2{font-size:clamp(2.6rem,7vw,4.6rem);text-transform:uppercase}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.badge{padding:5px 16px;border-radius:999px;font-weight:800;font-size:.85rem;background:var(--lime);color:#0a0c00}
+.badge.o{background:transparent;color:var(--text);border:1px solid var(--line)}
+.dbody{padding:0 32px 36px}
+.dbody h3{font-size:1.8rem;margin:30px 0 14px}
+.dbody h3:first-child{margin-top:0}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+video{width:100%;border-radius:18px;border:1px solid var(--line);background:#000}
+figcaption{color:var(--mute);font-size:.85rem;margin-top:4px}
+
+footer{max-width:1280px;margin:0 auto;padding:0 24px 48px;color:var(--mute);font-size:.85rem}
+@media(max-width:600px){.hero{padding-top:36px}.dh{padding:24px}.dbody{padding:0 20px 28px}.count{margin-left:0;width:100%}}
+@media(prefers-reduced-motion:reduce){.row{animation:none}*{transition:none!important}dialog[open]{animation:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="logo"><i></i>Brawl Codex</div>
+  <h1>Every<br><span>Brawler.</span></h1>
+  <p class="lead">Gadgets, star powers, hypercharges, gears and animations for the whole roster. Search it, filter it, open anyone.</p>
+  <div class="search"><input id="q" type="search" placeholder="Search a brawler, gadget or star power" aria-label="Search"></div>
+  <div class="marq" id="marq" aria-label="Brawler roster preview"><div class="row" id="r1"></div><div class="row rev" id="r2"></div></div>
+</header>
+
+<nav class="nav" aria-label="Sections"><div class="in" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-tab="brawlers">Brawlers</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="gadgets">Gadgets</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="stars">Star Powers</button>
+  <button class="tab" role="tab" aria-selected="false" data-tab="gears">Gears</button>
+  <span class="count" id="count" aria-live="polite"></span>
+</div></nav>
+
+<main id="main">
+  <div class="filters" id="filters"></div>
+  <div id="note"></div>
+  <div id="out" class="grid"></div>
+</main>
+
+<dialog id="dlg" aria-label="Brawler details"><button class="x" id="close" aria-label="Close">&#x2715;</button><div class="dscroll" id="dbody"></div></dialog>
+
+<footer>Unofficial fan project, not affiliated with or endorsed by Supercell. Brawl Stars and all related names and artwork belong to Supercell. Brawler data and images come from the community Brawlify API. Gear effects were compiled from community guides, so check the game for the latest numbers.</footer>
+
+<script>
+const API = 'https://api.brawlapi.com/v1';
+const GEARS = [
+  {name:'Damage', tier:'Super Rare', icon:'💥', text:'Deal 15% extra damage while your health is below 50%.'},
+  {name:'Gadget Cooldown', tier:'Super Rare', icon:'⏱️', text:'Gadgets recharge 15% faster.'},
+  {name:'Health', tier:'Super Rare', icon:'❤️', text:'Healing you receive is 50% more effective.'},
+  {name:'Shield', tier:'Super Rare', icon:'🛡️', text:'Adds a 900 HP shield that comes back after 10 seconds once you are at full health.'},
+  {name:'Speed', tier:'Super Rare', icon:'🌿', text:'Move 15% faster while standing in bushes.'},
+  {name:'Vision', tier:'Super Rare', icon:'👁️', text:'Enemies you damage are revealed for 2 seconds.'},
+  {name:'Pet Power', tier:'Epic', icon:'🐾', text:'Pets are 25% stronger.'},
+  {name:'Reload Speed', tier:'Epic', icon:'⚡', text:'Your main attack reloads 15% faster.'},
+  {name:'Super Charge', tier:'Epic', icon:'⭐', text:'Your Super charges 10% faster.'},
+  {name:'Exhausting Storm', tier:'Mythic', icon:'🌪️', text:'Sandy: enemies inside the sandstorm deal 20% less damage.'},
+  {name:'Quadruplets', tier:'Mythic', icon:'🐣', text:"Eve: the Super spawns 1 extra hatchling."},
+  {name:'Sticky Oil', tier:'Mythic', icon:'🛢️', text:"Amber: oil puddles also slow enemies by 10%."},
+  {name:'Super Turret', tier:'Mythic', icon:'🔧', text:"Pam: the turret heals 20% more."},
+  {name:'Talk To The Hand', tier:'Mythic', icon:'✋', text:"Gene: the Magic Hand reaches farther."},
+  {name:'Thicc Head', tier:'Mythic', icon:'💣', text:"Tick: the head has 1000 extra health."}
+];
+const state = {tab:'brawlers', q:'', rarity:'All', cls:'All', tier:'All', brawlers:[]};
+const $ = s => document.querySelector(s);
+const out = $('#out'), dlg = $('#dlg');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const strip = s => String(s ?? '').replace(/<[^>]*>/g, '');
+const img = (u, alt='') => u ? `<img src="${esc(u)}" alt="${esc(alt)}" loading="lazy">` : '';
+
+async function load() {
+  out.innerHTML = '<p class="msg">Loading the roster…</p>';
+  try {
+    const r = await fetch(API + '/brawlers');
+    if (!r.ok) throw 0;
+    const d = await r.json();
+    state.brawlers = (d.list || d).sort((a, b) => a.name.localeCompare(b.name));
+    marquee(); render();
+  } catch (e) {
+    out.className = 'grid';
+    out.innerHTML = '<p class="msg">Could not load Brawl Stars data from the Brawlify API. Check your connection and refresh.</p>';
+  }
+}
+
+function marquee() {
+  const list = state.brawlers.filter(b => b.imageUrl2 || b.imageUrl);
+  const fill = (el, arr) => {
+    const html = arr.map(b => `<button class="pill" data-id="${b.id}" aria-label="${esc(b.name)}">${img(b.imageUrl2 || b.imageUrl, b.name)}</button>`).join('');
+    el.innerHTML = html + html;
+  };
+  const half = Math.ceil(list.length / 2);
+  fill($('#r1'), list.slice(0, half));
+  fill($('#r2'), list.slice(half));
+}
+
+function chips(group, options, key) {
+  return options.map(o => `<button class="chip" aria-pressed="${state[key] === o}" data-key="${key}" data-v="${esc(o)}">${esc(o)}</button>`).join('');
+}
+
+const flat = k => state.brawlers.flatMap(b => (b[k] || []).map(i => ({...i, brawler: b})));
+const hit = (q, ...parts) => !q || parts.join(' ').toLowerCase().includes(q);
+
+function render() {
+  const q = state.q.trim().toLowerCase(), t = state.tab;
+  let html = '', n = 0, fhtml = '', note = '';
+  if (t === 'brawlers') {
+    const rar = ['All', ...new Set(state.brawlers.map(b => b.rarity?.name).filter(Boolean))];
+    const cls = ['All', ...new Set(state.brawlers.map(b => b.class?.name).filter(Boolean))];
+    fhtml = chips('r', rar, 'rarity') + '<span class="sep"></span>' + chips('c', cls, 'cls');
+    const list = state.brawlers.filter(b => (state.rarity === 'All' || b.rarity?.name === state.rarity) &&
+      (state.cls === 'All' || b.class?.name === state.cls) && hit(q, b.name, strip(b.description), b.class?.name));
+    n = list.length;
+    out.className = 'grid';
+    html = list.map(b => `<button class="card" style="--rc:${esc(b.rarity?.color || '#888')}" data-id="${b.id}">
+      <div class="ph">${img(b.imageUrl2 || b.imageUrl, b.name)}</div>
+      <h3>${esc(b.name)}</h3>
+      <div class="meta"><span class="dot"></span>${esc(b.rarity?.name || '')}<span>·</span>${esc(b.class?.name || '')}</div></button>`).join('');
+  } else if (t === 'gears') {
+    fhtml = chips('t', ['All', 'Super Rare', 'Epic', 'Mythic'], 'tier');
+    note = '<div class="note">Epic and Mythic gears are being phased out by Supercell as brawlers receive Buffies, so some of them may already be gone from your game.</div>';
+    const list = GEARS.filter(g => (state.tier === 'All' || g.tier === state.tier) && hit(q, g.name, g.text, g.tier));
+    n = list.length;
+    out.className = 'items';
+    html = list.map(g => `<div class="item"><div class="ic" aria-hidden="true">${g.icon}</div><div><b>${esc(g.name)}</b><span class="tag">${g.tier}</span><p>${esc(g.text)}</p></div></div>`).join('');
+  } else {
+    const key = t === 'gadgets' ? 'gadgets' : 'starPowers';
+    const list = flat(key).filter(i => hit(q, i.name, strip(i.description), i.brawler.name));
+    n = list.length;
+    out.className = 'items';
+    html = list.map(i => itemHtml(i, i.brawler.name)).join('');
+  }
+  $('#filters').innerHTML = fhtml;
+  $('#filters').hidden = !fhtml;
+  $('#note').innerHTML = note;
+  $('#count').textContent = n + (n === 1 ? ' result' : ' results');
+  out.innerHTML = html || '<p class="msg">Nothing matches that search. Try a shorter word.</p>';
+}
+
+function itemHtml(i, owner) {
+  return `<div class="item">${img(i.imageUrl, i.name)}<div><b>${esc(i.name)}</b>${owner ? `<span class="tag">${esc(owner)}</span>` : ''}<p>${esc(strip(i.description))}</p></div></div>`;
+}
+function section(title, arr) {
+  return arr && arr.length ? `<h3>${esc(title)}</h3><div class="items">${arr.map(i => itemHtml(i)).join('')}</div>` : '';
+}
+
+function openBrawler(id) {
+  const b = state.brawlers.find(x => String(x.id) === String(id));
+  if (!b) return;
+  const vids = (b.videos || []).map(v => ({...v, src: v.videoUrl || v.url})).filter(v => v.src);
+  $('#dbody').innerHTML = `
+    <div class="dh">${img(b.imageUrl3 || b.imageUrl2 || b.imageUrl, b.name)}
+      <div><h2>${esc(b.name)}</h2><div class="tags">
+        ${b.rarity ? `<span class="badge" style="background:${esc(b.rarity.color)}">${esc(b.rarity.name)}</span>` : ''}
+        ${b.class ? `<span class="badge o">${esc(b.class.name)}</span>` : ''}</div></div></div>
+    <div class="dbody">
+      <h3>About</h3><p style="max-width:70ch">${esc(strip(b.description))}</p>
+      ${section('Gadgets', b.gadgets)}${section('Star Powers', b.starPowers)}${section('Hypercharges', b.hyperCharges)}
+      ${vids.length ? `<h3>Animations</h3><div class="vids">${vids.map(v => `<figure style="margin:0"><video src="${esc(v.src)}" ${v.previewUrl ? `poster="${esc(v.previewUrl)}"` : ''} controls loop muted playsinline preload="none"></video><figcaption>${esc(v.type || v.name || v.title || '')}</figcaption></figure>`).join('')}</div>` : ''}
+      ${b.link ? `<p style="margin-top:28px"><a href="${esc(b.link)}" target="_blank" rel="noopener">More on Brawlify</a></p>` : ''}
+    </div>`;
+  dlg.showModal();
+  $('#dbody').scrollTop = 0;
+}
+
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+  state.tab = t.dataset.tab;
+  $('#main').scrollIntoView({block:'start'});
+  render();
+}));
+$('#filters').addEventListener('click', e => { const c = e.target.closest('.chip'); if (c) { state[c.dataset.key] = c.dataset.v; render(); } });
+$('#q').addEventListener('input', e => { state.q = e.target.value; render(); });
+document.addEventListener('click', e => { const c = e.target.closest('[data-id]'); if (c) openBrawler(c.dataset.id); });
+$('#close').addEventListener('click', () => dlg.close());
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener('close', () => dlg.querySelectorAll('video').forEach(v => v.pause()));
+$('#r1').innerHTML = $('#r2').innerHTML = '<div class="skel"></div>'.repeat(14);
+load();
+</script>
+</body>
+</html>
